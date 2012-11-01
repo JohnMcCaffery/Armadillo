@@ -1,0 +1,36 @@
+diff --git a/llappviewer.cpp b/llappviewer.cpp
+index d050180..25d6445 100644
+--- a/llappviewer.cpp
++++ b/llappviewer.cpp
+@@ -55,6 +55,7 @@
+ #include "llstartup.h"
+ #include "llfocusmgr.h"
+ #include "llviewerjoystick.h"
++#include "llviewernui.h"
+ #include "llallocator.h"
+ #include "llares.h" 
+ #include "llcurl.h"
+@@ -1046,6 +1047,7 @@ bool LLAppViewer::init()
+ 	gSimFrames = (F32)gFrameCount;
+ 
+ 	LLViewerJoystick::getInstance()->init(false);
++	LLViewerNui::getInstance()->init(false);
+ 
+ 	try {
+ 		initializeSecHandler();
+@@ -1203,6 +1205,7 @@ bool LLAppViewer::mainLoop()
+ 	LLTimer frameTimer,idleTimer;
+ 	LLTimer debugTime;
+ 	LLViewerJoystick* joystick(LLViewerJoystick::getInstance());
++	LLViewerNui* nui(LLViewerNui::getInstance());
+ 	joystick->setNeedsReset(true);
+ 
+ //MK
+@@ -1289,6 +1292,7 @@ bool LLAppViewer::mainLoop()
+ 				{
+ 					LLMemType mjk(LLMemType::MTYPE_JOY_KEY);
+ 					joystick->scanJoystick();
++					nui->scanNui();
+ 					gKeyboard->scanKeyboard();
+ 				}
+ 
