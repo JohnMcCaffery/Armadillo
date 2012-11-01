@@ -1,0 +1,37 @@
+Make the following changes to indra/newview/llapviewer.cpp (the changes are encapsulated in llappviewer.cpp.diff) : 
+
+
+#include "llviewernui.h" - 59
+LLViewerNui::getInstance()->init(false); - 1031
+LLViewerNui* nui(LLViewerNui::getInstance()); - 1164
+nui->scanNui(); - 1248
+
+Add the following files to indra/newview and to the project.
+indra/newview/llviewernui.h
+indra/newview/llviewernui.cpp
+
+Add the following directories as include directories:
+$(KINECTSDK10_DIR)inc
+<NuiLibDirectory>Include
+$(OPENCV_DIR)build\include
+
+Add the following directories as library directories:
+$(OPENCV_DIR)build\x86\vc10\lib
+$(KINECTSDK10_DIR)\lib\x86\
+<NuiLibDirectory>\Lib\x86\vc10\
+
+Link the following libraries:
+opencv_imgproc241.lib
+opencv_core241.lib
+opencv_highgui241.lib
+opencv_objdetect241.lib
+NuiLib_v.lib
+NuiLib-Kinect-MS_v.lib
+Kinect10.lib;
+
+Copy the following libraries into the build configuration folder (build-vc100/newview/[Release,RelWithDB,Debug]/)
+$(OPENCV_DIR)build/x86/vc10/bin/opencv_core241[d].dll
+$(OPENCV_DIR)build/x86/vc10/bin/opencv_highgui241[d].dll
+$(OPENCV_DIR)build/x86/vc10/bin/opencv_imgproc241[d].dll
+$(OPENCV_DIR)build/x86/vc10/bin/opencv_objdetect241[d].dll 
+$(OPENCV_DIR)build/commom/tbb/ia32/vc10/tbb.dll
